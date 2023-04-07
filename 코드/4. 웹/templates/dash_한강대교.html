@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>한강대교</title>
+    <style>
+        html, body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+        }
+
+        div.container {
+            height: 99%;
+            border: 0px solid #003458;
+            flex: 1;
+            overflow: auto;
+        }
+
+        div.top {
+            display: block;
+            width: 100%;
+            height: 32px;
+            float: none;
+            overflow:hidden;
+            box-sizing: border-box;
+            /* background: #6bf859; */
+        }
+
+        div.left {
+            width: 50%;
+            height: 370px;
+            float: left;
+            overflow-y: scroll;
+            box-sizing: border-box;
+            /* background: #8977ad; */
+        }
+        div.right {
+            width: 50%;
+            height: 370px;
+            float: right;
+            margin: 0;
+            padding: 0;
+            overflow:hidden;
+            box-sizing: border-box;
+            /* background: #ece6cc; */
+            z-index: -1;
+        }
+        div.middle {
+            display: inline;
+            width: 100%;
+            height: 63%;
+            float: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            /* background: #6bf859; */
+            position: absolute;
+            top: 400px;
+            left: 0;
+            z-index: 1;
+        }
+
+        button
+        {
+            width:100px;
+            height: 30px;
+            color:#fff;
+            background: #004fff;
+            font-size: 16px;
+            border:none;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0,79,255,0.3);
+            transition:0.3s;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+
+        }
+        .home {
+            position: fixed;
+            top: 20px;
+            left: 70px;
+        }
+        .more {
+            position: fixed;
+            top: 20px;
+            left: 200px;
+            width:150px;
+        }
+        button:focus {
+            outline:0;
+        }
+        button:hover{
+            background: rgba(0,79,255,0.9);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,79,255,0.6);
+        }
+        div.main{
+            margin-bottom: 45px;
+        }
+
+        .level_table{
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            /* border-top: 1px solid #444444; */
+        }
+        .row{
+            margin-bottom: 20px;
+            height: 30px;
+            padding: 10px;
+            border-bottom: 1px solid #444444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <a href='../'><button class="home">홈으로</button></a>
+            <a href='../more'><button class="more">데이터 더보기</button></a>
+        </div>
+        <div class="left">
+            <table class="level_table">
+                <thead>
+                    <th class="row">시각</th>
+                    <th class="row">유량(m³/s)</th>
+                    <th class="row">수위(cm)</th>
+                </thead>
+                <tbody>
+                    <!-- {{rows[-1].wl_1018662}} -->
+                    {% for row in rows[-1:-72:-1] %}
+                    <tr class="row">
+                        <td>{{row[1]}}</td>
+                        <td>{{row[-6]}}</td>
+                        <td>{{row[-2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="right">
+
+
+
+
+<style>
+
+</style>
+
+<div id="level"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+       
+       mpld3.draw_figure("level", {"width": 750.0, "height": 350.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.75, 36.75], "ylim": [337.86881561279296, 402.56944732666017], "xdomain": [-1.75, 36.75], "ydomain": [337.86881561279296, 402.56944732666017], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el1002139705490858736", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el1002139705285082224", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el1002139705285280624", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el1002139705285077952", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "* 10min", "position": [0.5, -0.10863739435168004], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490861328"}, {"text": "water level", "position": [-0.07166069295101554, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490862816"}, {"text": "22/08/30 19:55\uc5d0 \uc608\uce21\ud55c \uc218\uc704 \ubcc0\ud654 \uadf8\ub798\ud504", "position": [0.5, 1.0309214594928882], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705285071856"}, {"text": "predict", "position": [0.8946236559139785, 0.9128014842300558], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el1002139705285279808"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 340.80975341796875], [1.0, 352.5613708496094], [2.0, 354.8600769042969], [3.0, 350.21630859375], [4.0, 362.45574951171875], [5.0, 364.00848388671875], [6.0, 371.5126647949219], [7.0, 379.2361755371094], [8.0, 384.8886413574219], [9.0, 377.4877624511719], [10.0, 383.4007263183594], [11.0, 389.3765563964844], [12.0, 399.6285095214844], [13.0, 391.5142517089844], [14.0, 392.7048034667969], [15.0, 390.5912780761719], [16.0, 385.9866638183594], [17.0, 391.56622314453125], [18.0, 383.52947998046875], [19.0, 379.67633056640625], [20.0, 380.9281311035156], [21.0, 378.8644104003906], [22.0, 368.7348937988281], [23.0, 370.8667907714844], [24.0, 374.74017333984375], [25.0, 376.53802490234375], [26.0, 371.39984130859375], [27.0, 375.0140380859375], [28.0, 379.9033203125], [29.0, 372.52880859375], [30.0, 377.1108703613281], [31.0, 373.3749084472656], [32.0, 376.7034606933594], [33.0, 370.971435546875], [34.0, 370.0985107421875], [35.0, 372.0526123046875]], "data02": [[0.8277180406212664, 0.9308390022675739], [0.8516129032258064, 0.9308390022675739], [0.8755077658303465, 0.9308390022675739]], "data03": [[0.8229390681003586, 0.881055452484024], [0.9832735961768219, 0.881055452484024], [0.9880525686977301, 0.881055452484024], [0.9880525686977301, 0.8913626056483199], [0.9880525686977301, 0.9639249639249641], [0.9880525686977301, 0.97423211708926], [0.9832735961768219, 0.97423211708926], [0.8229390681003586, 0.97423211708926], [0.8181600955794505, 0.97423211708926], [0.8181600955794505, 0.9639249639249641], [0.8181600955794505, 0.8913626056483199], [0.8181600955794505, 0.881055452484024], [0.8229390681003586, 0.881055452484024]]}, "id": "el1002139705499244848", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.8.js", function(){
+         
+         mpld3.draw_figure("level", {"width": 750.0, "height": 350.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.75, 36.75], "ylim": [337.86881561279296, 402.56944732666017], "xdomain": [-1.75, 36.75], "ydomain": [337.86881561279296, 402.56944732666017], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el1002139705490858736", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el1002139705285082224", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el1002139705285280624", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el1002139705285077952", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "* 10min", "position": [0.5, -0.10863739435168004], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490861328"}, {"text": "water level", "position": [-0.07166069295101554, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490862816"}, {"text": "22/08/30 19:55\uc5d0 \uc608\uce21\ud55c \uc218\uc704 \ubcc0\ud654 \uadf8\ub798\ud504", "position": [0.5, 1.0309214594928882], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705285071856"}, {"text": "predict", "position": [0.8946236559139785, 0.9128014842300558], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el1002139705285279808"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 340.80975341796875], [1.0, 352.5613708496094], [2.0, 354.8600769042969], [3.0, 350.21630859375], [4.0, 362.45574951171875], [5.0, 364.00848388671875], [6.0, 371.5126647949219], [7.0, 379.2361755371094], [8.0, 384.8886413574219], [9.0, 377.4877624511719], [10.0, 383.4007263183594], [11.0, 389.3765563964844], [12.0, 399.6285095214844], [13.0, 391.5142517089844], [14.0, 392.7048034667969], [15.0, 390.5912780761719], [16.0, 385.9866638183594], [17.0, 391.56622314453125], [18.0, 383.52947998046875], [19.0, 379.67633056640625], [20.0, 380.9281311035156], [21.0, 378.8644104003906], [22.0, 368.7348937988281], [23.0, 370.8667907714844], [24.0, 374.74017333984375], [25.0, 376.53802490234375], [26.0, 371.39984130859375], [27.0, 375.0140380859375], [28.0, 379.9033203125], [29.0, 372.52880859375], [30.0, 377.1108703613281], [31.0, 373.3749084472656], [32.0, 376.7034606933594], [33.0, 370.971435546875], [34.0, 370.0985107421875], [35.0, 372.0526123046875]], "data02": [[0.8277180406212664, 0.9308390022675739], [0.8516129032258064, 0.9308390022675739], [0.8755077658303465, 0.9308390022675739]], "data03": [[0.8229390681003586, 0.881055452484024], [0.9832735961768219, 0.881055452484024], [0.9880525686977301, 0.881055452484024], [0.9880525686977301, 0.8913626056483199], [0.9880525686977301, 0.9639249639249641], [0.9880525686977301, 0.97423211708926], [0.9832735961768219, 0.97423211708926], [0.8229390681003586, 0.97423211708926], [0.8181600955794505, 0.97423211708926], [0.8181600955794505, 0.9639249639249641], [0.8181600955794505, 0.8913626056483199], [0.8181600955794505, 0.881055452484024], [0.8229390681003586, 0.881055452484024]]}, "id": "el1002139705499244848", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.8.js", function(){
+                 
+                 mpld3.draw_figure("level", {"width": 750.0, "height": 350.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.75, 36.75], "ylim": [337.86881561279296, 402.56944732666017], "xdomain": [-1.75, 36.75], "ydomain": [337.86881561279296, 402.56944732666017], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el1002139705490858736", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el1002139705285082224", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el1002139705285280624", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el1002139705285077952", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "* 10min", "position": [0.5, -0.10863739435168004], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490861328"}, {"text": "water level", "position": [-0.07166069295101554, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705490862816"}, {"text": "22/08/30 19:55\uc5d0 \uc608\uce21\ud55c \uc218\uc704 \ubcc0\ud654 \uadf8\ub798\ud504", "position": [0.5, 1.0309214594928882], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el1002139705285071856"}, {"text": "predict", "position": [0.8946236559139785, 0.9128014842300558], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el1002139705285279808"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 340.80975341796875], [1.0, 352.5613708496094], [2.0, 354.8600769042969], [3.0, 350.21630859375], [4.0, 362.45574951171875], [5.0, 364.00848388671875], [6.0, 371.5126647949219], [7.0, 379.2361755371094], [8.0, 384.8886413574219], [9.0, 377.4877624511719], [10.0, 383.4007263183594], [11.0, 389.3765563964844], [12.0, 399.6285095214844], [13.0, 391.5142517089844], [14.0, 392.7048034667969], [15.0, 390.5912780761719], [16.0, 385.9866638183594], [17.0, 391.56622314453125], [18.0, 383.52947998046875], [19.0, 379.67633056640625], [20.0, 380.9281311035156], [21.0, 378.8644104003906], [22.0, 368.7348937988281], [23.0, 370.8667907714844], [24.0, 374.74017333984375], [25.0, 376.53802490234375], [26.0, 371.39984130859375], [27.0, 375.0140380859375], [28.0, 379.9033203125], [29.0, 372.52880859375], [30.0, 377.1108703613281], [31.0, 373.3749084472656], [32.0, 376.7034606933594], [33.0, 370.971435546875], [34.0, 370.0985107421875], [35.0, 372.0526123046875]], "data02": [[0.8277180406212664, 0.9308390022675739], [0.8516129032258064, 0.9308390022675739], [0.8755077658303465, 0.9308390022675739]], "data03": [[0.8229390681003586, 0.881055452484024], [0.9832735961768219, 0.881055452484024], [0.9880525686977301, 0.881055452484024], [0.9880525686977301, 0.8913626056483199], [0.9880525686977301, 0.9639249639249641], [0.9880525686977301, 0.97423211708926], [0.9832735961768219, 0.97423211708926], [0.8229390681003586, 0.97423211708926], [0.8181600955794505, 0.97423211708926], [0.8181600955794505, 0.9639249639249641], [0.8181600955794505, 0.8913626056483199], [0.8181600955794505, 0.881055452484024], [0.8229390681003586, 0.881055452484024]]}, "id": "el1002139705499244848", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+            })
+         });
+}
+</script>
+
+            <!-- <iframe src="../pred/한강대교" style="width:99%; height:99%; border:0;"></iframe> -->
+        </div>
+        <div class="middle">
+            <iframe src="../charts/한강대교" style="width:99%; height:99%; border:0;"></iframe>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

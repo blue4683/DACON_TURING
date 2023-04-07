@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>한강 수위 몰아보기</title>
+    <style>
+        html, body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+        }
+
+        div.top {
+            /* display: inline-block; */
+            /* display: flex; */
+            width: 100%;
+            height: 30px;
+            float: none;
+            overflow:hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            /* background: #6bf859; */
+        }
+
+        .main{
+            padding-top: 40px;
+        }
+
+        button
+        {
+            width:100px;
+            height: 30px;
+            color:#fff;
+            background: #004fff;
+            font-size: 16px;
+            border:none;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0,79,255,0.3);
+            transition:0.3s;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            position: fixed;
+            top: 20px;
+            left: 70px;
+        }
+        button:focus {
+            outline:0;
+        }
+        button:hover{
+            background: rgba(0,79,255,0.9);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,79,255,0.6);
+        }
+        /* div.main{
+            margin-bottom: 45px;
+        } */
+
+        .level_table{
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            border-top: 1px solid #444444;
+        }
+        .row{
+            margin-bottom: 20px;
+            height: 30px;
+            padding: 10px;
+            border-bottom: 1px solid #444444;
+        }
+        .desc{
+            text-align: right;
+            font-size: 14px;
+            color: #444444;
+            font-weight: bold;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <button onclick="location.href='../';">홈으로</button>
+            <div class="desc">데이터 출처: 환경부, 해양수산부</div>
+        </div>
+        <div class="main">
+            <table class="level_table">
+                <thead>
+                    <th class="row">시각</th>
+                    <th class="row">대곡교 강수량</th>
+                    <th class="row">진관교 강수량</th>
+                    <th class="row">송정동 강수량</th>
+                    <th class="row">팔당댐 수위</th>
+                    <th class="row">팔당댐 유입량</th>
+                    <th class="row">팔당댐 저수량</th>
+                    <th class="row">팔당댐 공용량</th>
+                    <th class="row">팔당댐 방류량</th>
+                    <th class="row">강화대교 조위</th>
+                    <th class="row">청담대교 수위</th>
+                    <th class="row">청담대교 유량</th>
+                    <th class="row">잠수교 수위</th>
+                    <th class="row">한강대교 수위</th>
+                    <th class="row">한강대교 유량</th>
+                    <th class="row">행주대교 수위(cm)</th>
+                    <th class="row">행주대교 유량(m³/s)</th>
+                </thead>
+                <tbody>
+                    {% for row in rows[-1::-1] %}
+                    <tr class="row">
+                        {% for td in row[1:] %}
+                            <td>{{td}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

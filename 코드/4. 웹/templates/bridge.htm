@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>한강수위 변화</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c79889690d61e137513a525e22fe1aad"></script>
+    <style>
+        html, body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+        }
+
+        h2 {
+            font-size: 1.9em;
+        }
+
+        a {
+			all: unset;
+            cursor: pointer;
+		}
+        a:hover {
+            text-decoration:underline;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        .container::after {
+            width: 100%;
+            height: 100%;
+            content: "";
+            background-image: url('./static/wallpaperbetter.com_1366x768.jpg');
+            background-repeat : no-repeat;
+            background-size : cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .header {
+            height: 65px;
+            padding-bottom: 10px;
+            /* background-color: #c0ceeb78; */
+            text-align: center;
+        }
+
+        .content {
+            /* display: flex; */
+            flex: 1;
+            display: block;
+        }
+
+        .main{
+            /* display: flex; */
+            flex: 1;
+            overflow: auto;
+        }
+
+        #map{
+            text-align:center;
+            margin:0 auto;
+            width:100%;
+            height:400px;
+        }
+
+		.info-title {
+			display: block;
+			background: #50627F;
+			color: #fff;
+			text-align: center;
+			height: 24px;
+			line-height:22px;
+			border-radius:4px;
+			padding:0px 5px;
+			margin-top:25px;
+		}
+
+        .buttons {
+            display: inline;
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+
+        .action_btn{
+            width:200px;
+            height: 100px;
+            color:#fff;
+            background: #004fff;
+            font-size: 16px;
+            border:none;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0,79,255,0.3);
+            transition:0.3s;
+            left:50%;
+            top:50%;
+            /* transform: translate(-50%,-50%); */
+            margin-bottom: 5px;
+            padding: 0;
+        }
+        .action_btn:focus {
+            outline:0;
+        }
+        .action_btn:hover{
+            background: rgba(0,79,255,0.9);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,79,255,0.6);
+        }
+
+        .split {
+            margin-bottom: 5px;
+            /* padding-left: 150px; */
+            text-align: center;
+        }
+
+        .up {
+            padding-top: 20px;
+        }
+        
+        .subject {
+            display:block;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .description{
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        .btnfirst {
+            font-size: 27px;
+            display: block;
+            text-align: left;
+            padding-left: 20px;
+            line-height: 0;
+            margin-bottom: 13px;
+        }
+        .btnsecond {
+            font-size: 20px;
+            display: block;
+            text-align: right;
+            padding-right: 20px;
+            line-height: 0;
+        }
+
+        #map
+        {
+            height: 50%;
+        }
+
+        @media screen and (min-width: 737px) and (max-width: 1200px) {
+            .header{
+                padding-bottom: 14px;
+            }
+            h2 {
+                font-size: 1.75em;
+            }
+            .description{
+                font-size: 1.2em;
+            }
+        }
+
+        @media screen and (min-width: 400px) and (max-width: 737px) {
+            .header{
+                padding-bottom: 0px;
+                height: 65px;
+                /* background-color: #c0ceeb78; */
+                text-align: center;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .description{
+                font-size: 1.0em;
+
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .header{
+                padding-bottom: 0px;
+                height: 60px;
+                /* background-color: #c0ceeb78; */
+                text-align: center;
+            }
+            h2 {
+                font-size: 1.25em;
+            }
+            .description{
+                font-size: 0.8em;
+            }
+        }
+	</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>한강 주요 다리 수위 확인</h2>
+        </div>
+
+        <div class="content">
+            <p class="description">서울시내 한강 주요지점(잠수교 등)의 수위를 예측함으로써, 홍수재해로 인한 피해를 미연에 방지하고 최소화 할 목적으로 만든 사이트</p>
+
+            <div id="map"></div>
+
+            <div class="main">
+                <div class="subject">주요다리 현재 수위(cm)<br>(반영시각: {{rows[-1].ymdhm}})</div>
+            </div>
+
+            <div class="buttons">
+                <div class="split up">
+                    <button type="button" class="action_btn" onclick="location.href='./dashboard/청담대교';"><span class="btnfirst">청담대교</span><br><span class="btnsecond">{{rows[-1].wl_1018662}}</span></button>
+                    <button type="button" class="action_btn" onclick="location.href='./dashboard/잠수교';"><span class="btnfirst">잠수교</span><br><span class="btnsecond">{{rows[-1].wl_1018680}}</span></button>
+                </div>
+                <div class="split">
+                    <button type="button" class="action_btn" onclick="location.href='./dashboard/한강대교';"><span class="btnfirst">한강대교</span><br><span class="btnsecond">{{rows[-1].wl_1018683}}</span></button>
+                    <button type="button" class="action_btn" onclick="location.href='./dashboard/행주대교';"><span class="btnfirst">행주대교</span><br><span class="btnsecond">{{rows[-1].wl_1019630}}</span></button>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(37.538689, 126.950226),
+			level: 9
+		};
+		var map = new kakao.maps.Map(container, options);
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+		var marker_positions = [
+			{
+				title: '<a class="bridge" href="./charts/팔당댐">팔당댐</a>', 
+				latlng: new kakao.maps.LatLng(37.5266899, 127.2792269)
+			},
+			{
+				title: '<a class="bridge" href="./dashboard/청담대교">청담대교</a>', 
+				latlng: new kakao.maps.LatLng(37.5271734, 127.0646654)
+			},
+			{
+				title: '<a class="bridge" href="./dashboard/잠수교">잠수교</a>', 
+				latlng: new kakao.maps.LatLng(37.5147572, 126.9964482)
+			},
+			{
+				title: '<a class="bridge" href="./dashboard/한강대교">한강대교</a>',
+				latlng: new kakao.maps.LatLng(37.5178677, 126.959006)
+			},
+			{
+				title: '<a class="bridge" href="./dashboard/행주대교">행주대교</a>',
+				latlng: new kakao.maps.LatLng(37.5987404, 126.810551)
+			}
+		];
+
+		for (var i = 0; i < marker_positions.length; i ++) {
+			var marker = new kakao.maps.Marker({ 
+				map: map, 
+				position: marker_positions[i].latlng,
+				title: marker_positions[i].title,
+				clickable: true
+			});
+			marker.setMap(map);
+			var content = '<div class ="info-title">'+marker_positions[i].title+'</div>';
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: marker_positions[i].latlng,
+				content: content,
+				clickable: true
+			});
+			customOverlay.setMap(map);
+			kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker));
+		};
+
+		function makeClickListener(map, marker) {
+			return function() {
+				var resultDiv = document.getElementById('result'); 
+				resultDiv.innerHTML = marker.Gb;
+				console.log("'<a href=aa".replace('\'<a href=',''));
+				// console.log(marker.Gb);
+			};
+		}
+
+		// kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		// 	var latlng = mouseEvent.latLng;
+		// 	var message = '위도: ' + latlng.getLat() + ', ';
+		// 	message += '경도: ' + latlng.getLng();
+		// 	var resultDiv = document.getElementById('result'); 
+		// 	resultDiv.innerHTML = message;
+		// });
+	</script>
+</body>
