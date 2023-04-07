@@ -20,7 +20,7 @@
 ## 개발 환경
 - Google Colab & VSCode
 - Jupyter Notebook
-- Notion(결과 정리)
+- [Notion(결과 정리)](https://mountainous-rest-f8e.notion.site/DACON-AI-d0b76b12c9064b95af4847439f0fd281)
 
 ### 크롤링 & 모델링
 ```
